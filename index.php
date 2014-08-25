@@ -17,7 +17,7 @@ $paginas = $db->select('paginas', '*', NULL, 'ya_clasificado, pagina');
 <table>
 	<thead>
 		<tr>
-			<th>P&aacute;gina</th>
+			<th>P&aacute;gina 2</th>
 			<th>Contenido</th>
 			<th>¿Ya clasificado?</th>
 		</tr>
