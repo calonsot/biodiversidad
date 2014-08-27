@@ -145,6 +145,28 @@ class Arc
 						array_push($nodes[$k], $attrs);
 					}
 					break;
+				case 'object':
+					$attrs = $this->set_tag_attributes($data, $k, NULL);
+					if (!empty($attrs))
+					{
+						if (!isset($nodes[$k]))
+							$nodes[$k] = array();						
+						unset($attrs['id uri']);
+						array_push($nodes[$k], $attrs);
+					}
+					break;
+				case 'embed':
+					$attrs = $this->set_tag_attributes($data, $k, NULL);
+					if (!empty($attrs))
+					{
+						if (!isset($nodes[$k]))
+							$nodes[$k] = array();
+						$attrs['src'] = $attrs['src uri'];
+						unset($attrs['src uri']);
+						unset($attrs['id uri']);
+						array_push($nodes[$k], $attrs);
+					}
+					break;
 					/*case 'div':
 					 $attrs = $this->set_tag_attributes($data, $k, true);
 					if (!empty($attrs))
@@ -174,7 +196,7 @@ class Arc
 					}
 					break;*/
 			}
-		}
+		}		
 		$nodes['plaintext'] = array(array('value'=>$this->get_dom_plaintext()));
 		$nodes['headers'] = array($this->headers($parser));
 		return $nodes;

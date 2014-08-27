@@ -119,6 +119,7 @@ td {
 					echo '</table>';
 					echo '</td><td>';
 					echo $tag == 'img' ? $html_tag.= '>' : '';   //solo para imagenes
+					echo $tag == 'embed' ? $html_tag.= '>' : '';   //solo para swf
 					echo '</td></tr></table>';
 					echo '</li>';
 				}
