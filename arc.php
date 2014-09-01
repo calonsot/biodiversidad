@@ -53,7 +53,6 @@ class Arc
 	private function nodes ($parser)
 	{
 		$nodes = array();		
-	
 		$prefix = 'http://www.biodiversidad.gob.mx/';
 		$sufix = '.html';
 		
