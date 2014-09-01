@@ -85,18 +85,20 @@ td {
 				} else {
 					$rows = '5';
 					$cols = '50';
-				}
-					
-				echo '<h3>'.$tag.'</h3>';
+				}				
+				
+				echo '<h3>'.$tag.'</h3>';				
 				echo '<ol>';
 				foreach ($data as $k => $attributes)
-				{
-					$html_tag = '<'.$tag.' ';  //para desplegar la etiqueta en el browser
+				{					
+					$valor = '';
+					$html_tag = '<'.$tag.' ';  //para desplegar la etiqueta en el browser													
 					echo '<li>';
 					echo '<table><tr><td>';
 					echo '<table>';
 					foreach ($attributes as $attribute => $value)
 					{
+						$attribute == 'href uri' ? $tag == 'a' ? $valor = $value : '' : '';
 						$html_tag.= $attribute."='".$value."' ";
 						echo '<tr>';
 						echo '<td>';
@@ -106,10 +108,10 @@ td {
 						echo "<input type='text' size='50' value='".$attribute."' name='attr-|-".$tag.'-|-'.$k."'><br>";
 						echo '</td>';
 						echo '</tr>';
-						echo '<tr>';
+						echo '<tr>';						
 						echo '<td>';
 						echo "<label for='val-|-".$tag.'-|-'.$k.'-|-'.$attribute."'>Valor:</label>";
-						echo '</td>';
+						echo '</td>';												
 						echo '<td>';
 						echo "<textarea rows='".$rows."' cols='".$cols."' id='val-|-".$tag.'-|-'.$k.'-|-'.$attribute."' name='val-|-".$tag.'-|-'.$k.'-|-'.$attribute."'>".$value."</textarea><br>";
 						echo '</td>';
@@ -120,23 +122,26 @@ td {
 					echo '</td><td>';
 					echo $tag == 'img' ? $html_tag.= '>' : '';   //solo para imagenes
 					echo $tag == 'embed' ? $html_tag.= '>' : '';   //solo para swf
+					echo $tag == 'a' ? "<td><a href='".$valor."' target='_blank'>".$valor."</a></td>" : ''; //solo para links 
 					echo '</td></tr></table>';
 					echo '</li>';
+					echo "Este es el valor: ".$valor;
 				}
 				echo '</ol>';
 			}
 			echo '</form>';
+			echo '<button id="boton" onclick="save_json();">Guardar</button>';			
 		}
 
 		if (isset($_GET['format']) && $_GET['format'] == 'view')
 		{
 			echo '<pre>';
-			print_r($content);
+				print_r($content);	
 			echo '</pre>';
 		}
 	}
 	?>
 
-	<button id="boton" onclick="save_json();">Guardar</button>
+	
 </body>
 </html>
