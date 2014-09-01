@@ -85,7 +85,7 @@ class Arc
 						array_push($nodes[$k], $attrs);
 					}
 					break;
-				case 'link':
+				/*case 'link':
 					$attrs = $this->set_tag_attributes($data, $k, NULL, '1');
 					if (!empty($attrs))
 					{
@@ -94,8 +94,8 @@ class Arc
 																		
 						array_push($nodes[$k], $attrs);
 					}
-					break;
-				case 'style':
+					break;*/
+				/*case 'style':
 					$attrs = $this->set_tag_attributes($data, $k, true);
 					if (!empty($attrs))
 					{
@@ -103,8 +103,8 @@ class Arc
 							$nodes[$k] = array();
 						array_push($nodes[$k], $attrs);
 					}
-					break;
-				case 'script':   //falta fragmentar el javascript dentro de la pagina
+					break;*/
+				/*case 'script':   //falta fragmentar el javascript dentro de la pagina
 					$attrs = isset($data['a']['src uri']) ? $this->set_tag_attributes($data, $k) : $this->set_tag_attributes($data, $k, true);
 					if (!empty($attrs))
 					{
@@ -112,7 +112,7 @@ class Arc
 							$nodes[$k] = array();
 						array_push($nodes[$k], $attrs);
 					}
-					break;
+					break;*/
 					/*case 'body':
 					 $attrs = $this->set_tag_attributes($data, $k);
 					if (!empty($attrs))
@@ -224,7 +224,7 @@ class Arc
 			}
 		}	
 		$nodes['plaintext'] = array(array('value'=>$this->get_dom_plaintext()));
-		$nodes['headers'] = array($this->headers($parser));	
+		//$nodes['headers'] = array($this->headers($parser));	
 		return $nodes;
 	}
 
@@ -281,13 +281,16 @@ class Arc
 	
 	private function patrones(){
 		$prefix_img = '/http:\D\Dwww.biodiversidad.gob.mx\D';
-		$patron = $prefix_img."biodiversidad\Dimages\Dbioc1_[0-9][0-9].png+$/";
+		$patron = $prefix_img."biodiversidad\Dimages\Dbioc1_[0-9][0-9].png+$/";		
 		$patron2 = $prefix_img."images\Dindex_nw_[0-9][0-9].png+$/";
 		$patron3 = $prefix_img."especies\Dimages\Dmenu_prin_[0-9][0-9][a]?.png+$/";
 		$patron4 = $prefix_img."images\Dcontycred_[0-9][0-9].png+$/";
 		$patron5 = $prefix_img."images\Dlogoprueba_[0-9][0-9].png+$/";
+		$patron6 = $prefix_img."biodiversidad\Dimages\Dbalazo_\w*.png+$/";
+		$patron7 = $prefix_img."biodiversidad\Dimages\Dbiodiv_new_[0-9][0-9].png+$/";
+		$patron8 = $prefix_img."biodiversidad\Dimages\Dtabla2_[0-9][0-9].png+$/";
 	
-		return $patterns = array($patron,$patron2,$patron3,$patron4,$patron5);
+		return $patterns = array($patron,$patron2,$patron3,$patron4,$patron5,$patron6,$patron7,$patron8);
 	}
 	
 	private function links_no_validos(){
