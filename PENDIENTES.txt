@@ -1,0 +1,12 @@
+Quitar de las imaganes todos los cuadriots de los menus: http://www.biodiversidad.gob.mx/biodiversidad/images/balazo_21.png
+
+Quitar de las imagenes todos los sub-menus que apareces en la derecha: http://www.biodiversidad.gob.mx/biodiversidad/images/biodiv_new_31.png
+
+Aun quedan unos margenes que tienen de igual forma un patron: http://www.biodiversidad.gob.mx/biodiversidad/images/tabla2_31.png
+
+Talves sea bueno quitar las etiquetas script, link ,style y header (solo comentar las lineas) para cuando lo vea el jefe vea las cosas un poco mas depuradas
+
+Asi como las imagenes se muestran las imagenes y los videos hayq ue ahcer que tambien muestre los links
+
+
+
