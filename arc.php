@@ -49,10 +49,17 @@ class Arc
 				'rdf' => $parser->rdf
 		);
 	}
-
+	
 	private function nodes ($parser)
 	{
-		$nodes = array();
+		$nodes = array();		
+	
+		$prefix = 'http://www.biodiversidad.gob.mx/';
+		$sufix = '.html';
+		
+		$link_disable = $this->links_no_validos();
+		$patterns = $this->patrones();
+		
 		foreach ($parser->nodes as $key => $data)
 		{
 			switch ($k = $data['tag_exact'])
@@ -85,6 +92,7 @@ class Arc
 					{
 						if (!isset($nodes[$k]))
 							$nodes[$k] = array();
+																		
 						array_push($nodes[$k], $attrs);
 					}
 					break;
@@ -116,12 +124,23 @@ class Arc
 					}
 					break;*/
 				case 'a':
+					$flag = true;
 					$attrs = $this->set_tag_attributes($data, $k, true);
 					if (!empty($attrs))
 					{
 						if (!isset($nodes[$k]))
 							$nodes[$k] = array();
-						array_push($nodes[$k], $attrs);
+						
+						foreach($link_disable as $word){
+							$href_uri = $attrs['href uri'];
+							if($href_uri==$prefix.$word."/".$word.$sufix || 
+									$href_uri==$prefix."menusup/".$word.$sufix ||
+									$href_uri==$prefix.$word.$sufix)
+								$flag=false;
+						}
+						
+						if($flag)
+							array_push($nodes[$k], $attrs);												
 					}
 					break;
 					/*case 'span':
@@ -134,15 +153,23 @@ class Arc
 					}
 					break;*/
 				case 'img':
+					$flag = true;
+					
 					$attrs = $this->set_tag_attributes($data, $k, NULL, '1');
 					if (!empty($attrs))
 					{
 						if (!isset($nodes[$k]))
-							$nodes[$k] = array();
+							$nodes[$k] = array();						
 						$attrs['src'] = $attrs['src uri'];
+						foreach ($patterns as $pattern){
+							if(preg_match($pattern, $attrs['src uri']))
+								$flag=false;
+						}												
+						
 						unset($attrs['src uri']);
 						unset($attrs['id uri']);
-						array_push($nodes[$k], $attrs);
+						if($flag)
+							array_push($nodes[$k], $attrs);
 					}
 					break;
 				case 'object':
@@ -156,7 +183,7 @@ class Arc
 					}
 					break;
 				case 'embed':
-					$attrs = $this->set_tag_attributes($data, $k, NULL);
+					$attrs = $this->set_tag_attributes($data, $k, NULL);					
 					if (!empty($attrs))
 					{
 						if (!isset($nodes[$k]))
@@ -196,9 +223,9 @@ class Arc
 					}
 					break;*/
 			}
-		}		
+		}	
 		$nodes['plaintext'] = array(array('value'=>$this->get_dom_plaintext()));
-		$nodes['headers'] = array($this->headers($parser));
+		$nodes['headers'] = array($this->headers($parser));	
 		return $nodes;
 	}
 
@@ -252,4 +279,23 @@ class Arc
 		
 		return empty($this->page_obj->json) ? $this->arc() : $this->json();
 	}
+	
+	private function patrones(){
+		$prefix_img = '/http:\D\Dwww.biodiversidad.gob.mx\D';
+		$patron = $prefix_img."biodiversidad\Dimages\Dbioc1_[0-9][0-9].png+$/";
+		$patron2 = $prefix_img."images\Dindex_nw_[0-9][0-9].png+$/";
+		$patron3 = $prefix_img."especies\Dimages\Dmenu_prin_[0-9][0-9][a]?.png+$/";
+		$patron4 = $prefix_img."images\Dcontycred_[0-9][0-9].png+$/";
+		$patron5 = $prefix_img."images\Dlogoprueba_[0-9][0-9].png+$/";
+	
+		return $patterns = array($patron,$patron2,$patron3,$patron4,$patron5);
+	}
+	
+	private function links_no_validos(){
+		$link_disable = array('biodiversidad','ecosistemas','especies','genes',
+				'usos','corredor','region','pais','planeta','comentarios',
+				'creditos','ninos','recursos','difusion','mapa','index');
+	
+		return $link_disable;
+	}	
 }
