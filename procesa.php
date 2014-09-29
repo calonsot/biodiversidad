@@ -19,10 +19,10 @@ include_once("arc.php");
 <script src="http://malsup.github.com/jquery.form.js"></script>
 <script type="text/javascript">
 
-borra_tag= function (obj){
-	//alert(obj);
-	$('#'+obj).remove();
-} 
+borra_tag= function (obj)
+{	
+	$('#'+obj+'div').remove();		
+}
 to_json = function ()
 {
 	var data = new Object();
