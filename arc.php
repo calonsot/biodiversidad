@@ -287,10 +287,7 @@ class Arc
 		$patron4 = $prefix_img."+(logoprueba_[0-9][0-9].png)|(contycred_[0-9][0-9].png)|(menu_prin_[0-9][0-9][a]?.png)$/";
 		$patron5 = $prefix_img."+(balazo_\w*.png)|(biodiv_new_[0-9][0-9].png)|(tabla2_[0-9][0-9].png)$/";
 		$patron6 = $prefix_img."+(descarga_\w*.png)|(ic\w*.png)|(imgPMNinos_\w*.png)|(logo\w*.png)|(m[1-5]_\w*.png)$/";
-		$patron7 = $prefiaintext
-
-
-Atributo:	x_img."+(mapsite_\w*.png)|(opIngles\w*.png)|(vv_\w*.png)|(titMexMegadiv_20.png)|(Log20Anios_CONABIO\w*.png)$/";
+		$patron7 = $prefix_img."+(mapsite_\w*.png)|(opIngles\w*.png)|(vv_\w*.png)|(titMexMegadiv_20.png)|(Log20Anios_CONABIO\w*.png)$/";
 		$patron8 = $prefix_img."+(DB.png)|(2013logo\w*.png)|(barra_[0-9].png)|(biodiversidad\w*.png)|(corredor\w*.png)$/";
 		$patron9 = $prefix_img."+(ecosistemas\w*.png)|(especies\w*.png)|(f_\w*.png)|(genes\w*.png)|(pais\w*.png)|(planeta\w*.png)$/";
 		$patron10 = $prefix_img."+(region_\w*.png)|(t_biodiversidad_[0-9].png)|(t_corredor_[0-9].png)|
