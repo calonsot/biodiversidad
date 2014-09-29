@@ -21,7 +21,7 @@ include_once("arc.php");
 
 borra_tag= function (obj)
 {	
-	$('#'+obj+'div').remove();		
+	$('#'+obj+'div').remove();
 }
 to_json = function ()
 {
