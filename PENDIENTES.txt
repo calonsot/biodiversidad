@@ -1,0 +1,15 @@
+Existe una imagen recurrente, al parecer solo tiene pixeles blancos: http://www.biodiversidad.gob.mx/genes/images/spacer.gif
+
+Esta imagen se repite sin la pagina tiene PDF: http://www.biodiversidad.gob.mx/images/icimpresion_21.png
+
+En la carpeta Public de tu maquina puse las imagenes que no deberin ser desplegadas en la apgina, igual ya tienes algunas, la idea es incluir todas esas (si es que tienen un patron) a la lista de imagenes no validas
+
+Va a ser bueno quitar algunas etiquetas manualmente dando click a la pagina (si tener que borar la informacion una por una) estaria bien si enfrente de cada etiqueta cuando en la pagina http://colibri.conabio.gob.mx/biodiversidad/procesa.php?page=http://www.biodiversidad.gob.mx/biodiversidad/biodiversidad.html&format=edit&id=2        existiera un link que te desaparezca toda esa etiqueta (con javascript) 
+
+De forma Analoga al anterior paso que puedan quitar URL's que no les sirven en http://colibri.conabio.gob.mx/biodiversidad/      (con ajax para borrar esa URL de la base)
+
+La etiqueta plaintext seria bueno subirla a los primeros lugares para que sea mas sencillo ver la informacion completa
+
+El boton guardar duplicarlo tambien en la parte de arriba para que sea mas sencillo
+
+Ver alguna forma de extraer solo el texto central de las paginas (lo ideal seria con todo y las etiquetas en texto plano), podrias ocupar aguna libreria que encuentres o talves se pueda preguntando directo al DOM de la pagina, ya que la forma en la que el plaintext es extraido aun no es la correcta.
