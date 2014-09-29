@@ -104,10 +104,7 @@ class Arc
 							$nodes[$k] = array();
 						array_push($nodes[$k], $attrs);
 					}
-					break;*/aintext
-
-
-Atributo:	
+					break;*/
 				/*case 'script':   //falta fragmentar el javascript dentro de la pagina
 					$attrs = isset($data['a']['src uri']) ? $this->set_tag_attributes($data, $k) : $this->set_tag_attributes($data, $k, true);
 					if (!empty($attrs))
@@ -136,8 +133,7 @@ Atributo:
 						
 						foreach($link_disable as $word){
 							$href_uri = $attrs['href uri'];
-							if($href_uri==$prefix.$word."/".$word.$sufix || 
-									$href_uri==$prefix."menusup/".$word.$sufix ||
+							if($href_uri==$prefix.$word."/".$word.$sufix || $href_uri==$prefix."menusup/".$word.$sufix ||
 									$href_uri==$prefix.$word.$sufix)
 								$flag=false;
 						}
