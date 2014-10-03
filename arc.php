@@ -259,9 +259,20 @@ class Arc
 
 	private function get_dom_plaintext ()
 	{
-		$html = file_get_html($this->page);		
-		//return strip_tags($html,'<body>');
-		return $html->plaintext;	
+		$html = file_get_html($this->page);
+		//$command = './sh/parameters.sh \'Inicio\' \'bioc1_19.png\' \''.$html.'\' sh/result.txt';
+		$command = './sh/formato.sh \''.$html.'\' sh/pagina.html';
+		$salida=exec($command);
+		$command = './sh/parameters.sh \'Inicio\' \'bioc1_19.png\' sh/pagina.html sh/resultado.txt';
+		$salida=exec($command);
+		$command = './sh/formato_lineal.sh sh/resultado.txt sh/pagina.html';
+		$salida=exec($command);		
+		$salida = file_get_html("sh/pagina.html");
+		
+		$command = './sh/limpiar.sh sh/resultado.txt sh/pagina.html';
+		exec($command);
+		//return $html->plaintext;	
+		return $salida->plaintext;
 	}
 
 	private function conexion ()
