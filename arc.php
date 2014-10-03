@@ -285,7 +285,7 @@ class Arc
 	{
 		$this->conexion();
 		$pagina = $this->db->select('paginas', '*', "pagina='".$this->page."'");
-		//$this->page_obj = $pagina[0];		
+		$this->page_obj = $pagina[0];		
 		return empty($this->page_obj->json) ? $this->arc() : $this->json();
 	}
 	
