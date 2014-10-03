@@ -57,4 +57,17 @@ class postgres
 			return $query->fetchAll(PDO::FETCH_OBJ);
 		else return 0;
 	}
+	
+	public function eliminar($table, $cond)
+	{
+		$sql = 'DELETE From '.$table;
+		$sql.= ' WHERE '.$cond;
+		$query = $this->db->query($sql);
+	
+		if ($query)
+			return 1;
+		else
+			return 0;
+	
+	}
 }
