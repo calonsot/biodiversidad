@@ -57,8 +57,7 @@ class Arc
 		$sufix = '.html';
 		
 		$link_disable = $this->links_no_validos();
-		$patterns = $this->patrones();
-		
+		$patterns = $this->patrones();		
 		foreach ($parser->nodes as $key => $data)
 		{
 			switch ($k = $data['tag_exact'])
@@ -83,8 +82,10 @@ class Arc
 						if (!isset($nodes[$k]))
 							$nodes[$k] = array();
 						array_push($nodes[$k], $attrs);
-					}
+						$nodes['plaintext'] = array(array('value'=>$this->get_dom_plaintext()));
+					}					
 					break;
+
 				/*case 'link':
 					$attrs = $this->set_tag_attributes($data, $k, NULL, '1');
 					if (!empty($attrs))
@@ -132,8 +133,7 @@ class Arc
 						
 						foreach($link_disable as $word){
 							$href_uri = $attrs['href uri'];
-							if($href_uri==$prefix.$word."/".$word.$sufix || 
-									$href_uri==$prefix."menusup/".$word.$sufix ||
+							if($href_uri==$prefix.$word."/".$word.$sufix || $href_uri==$prefix."menusup/".$word.$sufix ||
 									$href_uri==$prefix.$word.$sufix)
 								$flag=false;
 						}
@@ -222,8 +222,7 @@ class Arc
 					}
 					break;*/
 			}
-		}	
-		$nodes['plaintext'] = array(array('value'=>$this->get_dom_plaintext()));
+		}		
 		//$nodes['headers'] = array($this->headers($parser));	
 		return $nodes;
 	}
@@ -261,7 +260,19 @@ class Arc
 	private function get_dom_plaintext ()
 	{
 		$html = file_get_html($this->page);
-		return $html->plaintext;
+		//$command = './sh/parameters.sh \'Inicio\' \'bioc1_19.png\' \''.$html.'\' sh/result.txt';
+		$command = './sh/formato.sh \''.$html.'\' sh/pagina.html';
+		$salida=exec($command);
+		$command = './sh/parameters.sh \'Inicio\' \'bioc1_19.png\' sh/pagina.html sh/resultado.txt';
+		$salida=exec($command);
+		$command = './sh/formato_lineal.sh sh/resultado.txt sh/pagina.html';
+		$salida=exec($command);		
+		$salida = file_get_html("sh/pagina.html");
+		
+		$command = './sh/limpiar.sh sh/resultado.txt sh/pagina.html';
+		exec($command);
+		//return $html->plaintext;	
+		return $salida->plaintext;
 	}
 
 	private function conexion ()
@@ -274,8 +285,7 @@ class Arc
 	{
 		$this->conexion();
 		$pagina = $this->db->select('paginas', '*', "pagina='".$this->page."'");
-		$this->page_obj = $pagina[0];
-		
+		$this->page_obj = $pagina[0];		
 		return empty($this->page_obj->json) ? $this->arc() : $this->json();
 	}
 	
@@ -283,14 +293,16 @@ class Arc
 		$prefix_img = '/http:\D\Dwww.biodiversidad.gob.mx\D';
 		$patron = $prefix_img."biodiversidad\Dimages\Dbioc1_[0-9][0-9].png+$/";		
 		$patron2 = $prefix_img."images\Dindex_nw_[0-9][0-9].png+$/";
-		$patron3 = $prefix_img."especies\Dimages\Dmenu_prin_[0-9][0-9][a]?.png+$/";
-		$patron4 = $prefix_img."images\Dcontycred_[0-9][0-9].png+$/";
-		$patron5 = $prefix_img."images\Dlogoprueba_[0-9][0-9].png+$/";
-		$patron6 = $prefix_img."biodiversidad\Dimages\Dbalazo_\w*.png+$/";
-		$patron7 = $prefix_img."biodiversidad\Dimages\Dbiodiv_new_[0-9][0-9].png+$/";
-		$patron8 = $prefix_img."biodiversidad\Dimages\Dtabla2_[0-9][0-9].png+$/";
-	
-		return $patterns = array($patron,$patron2,$patron3,$patron4,$patron5,$patron6,$patron7,$patron8);
+		$patron3 = $prefix_img."+(spacer.gif)|(icimpresion_21.png)$/";
+		$patron4 = $prefix_img."+(logoprueba_[0-9][0-9].png)|(contycred_[0-9][0-9].png)|(menu_prin_[0-9][0-9][a]?.png)$/";
+		$patron5 = $prefix_img."+(balazo_\w*.png)|(biodiv_new_[0-9][0-9].png)|(tabla2_[0-9][0-9].png)$/";
+		$patron6 = $prefix_img."+(descarga_\w*.png)|(ic\w*.png)|(imgPMNinos_\w*.png)|(logo\w*.png)|(m[1-5]_\w*.png)$/";
+		$patron7 = $prefix_img."+(mapsite_\w*.png)|(opIngles\w*.png)|(vv_\w*.png)|(titMexMegadiv_20.png)|(Log20Anios_CONABIO\w*.png)$/";
+		$patron8 = $prefix_img."+(DB.png)|(2013logo\w*.png)|(barra_[0-9].png)|(biodiversidad\w*.png)|(corredor\w*.png)$/";
+		$patron9 = $prefix_img."+(ecosistemas\w*.png)|(especies\w*.png)|(f_\w*.png)|(genes\w*.png)|(pais\w*.png)|(planeta\w*.png)$/";
+		$patron10 = $prefix_img."+(region_\w*.png)|(t_biodiversidad_[0-9].png)|(t_corredor_[0-9].png)|
+			(t_ecosistemas_[0-9].png)|(t_pais_[0-9].png)|(t_planeta_[0-9].png)|(t_region_[0-9].png)|(t_usos_[0-9].png)$/";
+		return $patterns = array($patron,$patron2,$patron3,$patron4,$patron5,$patron6,$patron7,$patron8,$patron9,$patron10);
 	}
 	
 	private function links_no_validos(){
