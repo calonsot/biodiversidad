@@ -260,7 +260,6 @@ class Arc
 	private function get_dom_plaintext ()
 	{
 		$html = file_get_html($this->page);
-		//$command = './sh/parameters.sh \'Inicio\' \'bioc1_19.png\' \''.$html.'\' sh/result.txt';
 		$command = './sh/formato.sh \''.$html.'\' sh/pagina.html';
 		$salida=exec($command);
 		$command = './sh/parameters.sh \'Inicio\' \'bioc1_19.png\' sh/pagina.html sh/resultado.txt';
@@ -268,7 +267,6 @@ class Arc
 		$command = './sh/formato_lineal.sh sh/resultado.txt sh/pagina.html';
 		$salida=exec($command);		
 		$salida = file_get_html("sh/pagina.html");		
-		//return $html->plaintext;
 		$out = $salida->plaintext;
 		$command = './sh/links.sh \''.$out.'\' sh/salida.txt';
 		$out = exec($command);
