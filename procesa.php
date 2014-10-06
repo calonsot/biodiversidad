@@ -81,7 +81,7 @@ td {
 
 		if (isset($_GET['format']) && $_GET['format'] == 'edit')
 		{
-			echo '<button id="boton" onclick="save_json();" style="position:absolute;margin-left:300px;cursor:pointer;">Guardar</button>';
+			echo '<button id="boton" onclick="save_json();" style="position:absolute;margin-left:400px;cursor:pointer;">Guardar</button>';
 			echo "<form name='edit' action='edit.php' method='post'>";			
 			echo "<b>¿Ya esta clasificado este contenido?</b>: <select name='ya_clasificado' id='ya_clasificado'>";			
 			echo "<option value='0' selected>No</option>";
