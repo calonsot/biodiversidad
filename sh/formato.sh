@@ -7,6 +7,13 @@ echo $1 > $2
 chmod 777 $2
 #Se agregan todos los cambios que tendra el archivo
 sed -i -e 's/</\n</g' $2
+sed -i -e 's/<br>//g' $2
+sed -i -e 's/a>/a><br>/g' $2
+sed -i -e 's/m>/m><br>/g' $2
+sed -i -e 's/g>/g><br>/g' $2
+#sed -i -e 's/a>/a><br>/g' $2
+#sed -i -e 's/<br/---br/g' $2
+#sed -i -e 's/<\/br>/|br|/g' $2
 sed -i -e 's/<a/---a/g' $2
 sed -i -e 's/<\/a>/|a|/g' $2
 sed -i -e 's/<strong/---strong/g' $2
