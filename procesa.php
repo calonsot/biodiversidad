@@ -98,7 +98,7 @@ td {
 			{
 				if ($tag == 'plaintext')  //hace mas grande el textarea del plaintext
 				{
-					$rows = '50';
+					$rows = '75';
 					$cols = '100';
 					$flag = true;	
 				} else {
@@ -144,15 +144,18 @@ td {
 						if($flag){
 							echo "<table>";
 							echo "<tr>";
-							echo "<td>";
-							echo $value;
+							echo "<td class='plaintext'>";
+							$command = './sh/plaintext.sh sh/salida.txt';
+							echo exec($command);
+							$command = 'rm -f sh/salida.txt';
+							exec($command);
 							echo "</td>";
 							echo "</tr>";
 							echo "</table>";
 						}
 						echo '</td>';
-						echo '</tr>';											
-					}					
+						echo '</tr>';
+					}
 					echo '</td>';
 					echo $tag == 'img' ? $html_tag.= ' style="float:right;">' : '';   //solo para imagenes
 					echo $tag == 'embed' ? $html_tag.= ' style="float:right;">' : '';   //solo para swf
@@ -164,9 +167,8 @@ td {
 				echo '</ol>';
 			}
 			echo '</form>';
-			echo '<button id="boton" onclick="save_json();" style="cursor:pointer;">Guardar</button>';			
+			echo '<button id="boton" onclick="save_json();" style="cursor:pointer;">Guardar</button>';
 		}
-
 		if (isset($_GET['format']) && $_GET['format'] == 'view')
 		{
 			echo '<pre>';
@@ -174,8 +176,6 @@ td {
 			echo '</pre>';
 		}
 	}
-	?>
-
-	
+	?>	
 </body>
 </html>

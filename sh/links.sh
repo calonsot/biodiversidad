@@ -13,4 +13,6 @@ sed -i -e 's/---ul/<ul/g' $2
 sed -i -e 's/|ul|/<\/ul>/g' $2
 sed -i -e 's/---li/<li/g' $2
 sed -i -e 's/|li|/<\/li>/g' $2
+#sed -i -e 's/---br/<br/g' $2
+#sed -i -e 's/|br|/<\/br>/g' $2		
 cat $2
