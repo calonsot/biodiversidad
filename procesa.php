@@ -98,11 +98,13 @@ td {
 			{
 				if ($tag == 'plaintext')  //hace mas grande el textarea del plaintext
 				{
-					$rows = '50';
-					$cols = '120';
+					$rows = '75';
+					$cols = '100';
+					$flag = true;	
 				} else {
 					$rows = '5';
 					$cols = '50';
+					$flag = false;
 				}				
 				
 				echo '<h3>'.$tag.'</h3>';				
@@ -112,12 +114,17 @@ td {
 					$valor = '';
 					$html_tag = '<'.$tag.' ';  //para desplegar la etiqueta en el browser																		
 					echo '<table><tr><td>';
-					echo "<div id='".$tag."_".$k."div'>";
+					echo "<div id='".$tag."_".$k."div'>";					
 					echo '<table>';
+					echo '<li>';
 					echo "<a onclick='borra_tag(\"".$tag."_".$k."\");'><img class='delete' src='img/delete.png'/></a>";
 					foreach ($attributes as $attribute => $value)
 					{
 						$attribute == 'href uri' ? $tag == 'a' ? $valor = $value : '' : '';
+						if($attribute == 'cdata')
+							$link = $value;
+						else
+							$link = '';
 						$html_tag.= $attribute."='".$value."' ";
 														
 						echo '<tr>';												
@@ -132,26 +139,36 @@ td {
 						echo '<td>';
 						echo "<label for='val-|-".$tag.'-|-'.$k.'-|-'.$attribute."'>Valor:</label>";
 						echo '</td>';												
-						echo '<td>';
-						echo "<textarea rows='".$rows."' cols='".$cols."' id='val-|-".$tag.'-|-'.$k.'-|-'.$attribute."' name='val-|-".$tag.'-|-'.$k.'-|-'.$attribute."'>".$value."</textarea><br>";
+						echo '<td>';						
+						echo "<textarea style='float:left;' rows='".$rows."' cols='".$cols."' id='val-|-".$tag.'-|-'.$k.'-|-'.$attribute."' name='val-|-".$tag.'-|-'.$k.'-|-'.$attribute."'>".$value."</textarea><br>";
+						if($flag){
+							echo "<table>";
+							echo "<tr>";
+							echo "<td class='plaintext'>";
+							$command = './sh/plaintext.sh sh/salida.txt';
+							echo exec($command);
+							$command = 'rm -f sh/salida.txt';
+							exec($command);
+							echo "</td>";
+							echo "</tr>";
+							echo "</table>";
+						}
 						echo '</td>';
-						echo '</tr>';											
-					}					
-					echo '</table>';
+						echo '</tr>';
+					}
+					echo '</td>';
+					echo $tag == 'img' ? $html_tag.= ' style="float:right;">' : '';   //solo para imagenes
+					echo $tag == 'embed' ? $html_tag.= ' style="float:right;">' : '';   //solo para swf
+					echo $tag == 'a' ? "<a href='".$valor."' target='_blank' style='float:right;'>".$link."</a>" : ''; //solo para links 
+					echo '</li></table>';
 					echo '</div>';
-					echo '</td><td>';
-					echo $tag == 'img' ? $html_tag.= '>' : '';   //solo para imagenes
-					echo $tag == 'embed' ? $html_tag.= '>' : '';   //solo para swf
-					echo $tag == 'a' ? "<td><a href='".$valor."' target='_blank'>".$valor."</a></td>" : ''; //solo para links 
-					echo '</td></tr></table>';
-					echo '</li>';
+					echo '</table>';
 				}
 				echo '</ol>';
 			}
 			echo '</form>';
-			echo '<button id="boton" onclick="save_json();" style="cursor:pointer;">Guardar</button>';			
+			echo '<button id="boton" onclick="save_json();" style="cursor:pointer;">Guardar</button>';
 		}
-
 		if (isset($_GET['format']) && $_GET['format'] == 'view')
 		{
 			echo '<pre>';
@@ -159,8 +176,6 @@ td {
 			echo '</pre>';
 		}
 	}
-	?>
-
-	
+	?>	
 </body>
 </html>
