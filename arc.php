@@ -111,6 +111,21 @@ class Arc
 					{
 						if (!isset($nodes[$k]))
 							$nodes[$k] = array();
+		$html = file_get_html($this->page);
+		$command = './sh/formato.sh \''.$html.'\' sh/pagina.html';
+		$salida=exec($command);
+		$command = './sh/parameters.sh \'Inicio\' \'bioc1_19.png\' sh/pagina.html sh/resultado.txt';
+		$salida=exec($command);
+		$command = './sh/formato_lineal.sh sh/resultado.txt sh/pagina.html';
+		$salida=exec($command);		
+		$salida = file_get_html("sh/pagina.html");		
+		$out = $salida->plaintext;
+		$command = './sh/links.sh \''.$out.'\' sh/salida.txt';
+		$out = exec($command);
+		$command = './sh/limpiar.sh sh/resultado.txt sh/pagina.html sh/salida.txt';
+		//exec($command);
+		return $out;
+	
 						array_push($nodes[$k], $attrs);
 					}
 					break;*/
@@ -198,7 +213,7 @@ class Arc
 					if (!empty($attrs))
 					{
 					if (!isset($nodes[$k]))
-						$nodes[$k] = array();
+						$nodes[$k] = array();array
 					array_push($nodes[$k], $attrs);
 					}
 					break;*/
@@ -260,9 +275,45 @@ class Arc
 	private function get_dom_plaintext ()
 	{
 		$html = file_get_html($this->page);
+		system("echo '".$html."' > sh/html");
 		$command = './sh/formato.sh \''.$html.'\' sh/pagina.html';
 		$salida=exec($command);
+		//Biodiversidad
 		$command = './sh/parameters.sh \'Inicio\' \'bioc1_19.png\' sh/pagina.html sh/resultado.txt';
+		//Corredor
+		//$command = './sh/parameters.sh \'Inicio\' \'corredor_19.png\' sh/pagina.html sh/resultado.txt';
+		//Ecosistemas
+		//$command = './sh/parameters.sh \'Inicio\' \'ecosistemas_20.png\' sh/pagina.html sh/resultado.txt';
+		//Especies
+		//$command = './sh/parameters.sh \'Inicio\' \'marco_14.png\' sh/pagina.html sh/resultado.txt';
+		//Genes
+		//$command = './sh/parameters.sh \'Inicio\' \'genes_15.png\' sh/pagina.html sh/resultado.txt';
+		//Pais??
+		//$command = './sh/parameters.sh \'Inicio\' \'pais_19.png\' sh/pagina.html sh/resultado.txt';
+		//Planeta??
+		//$command = './sh/parameters.sh \'Inicio\' \'planeta_19.png\' sh/pagina.html sh/resultado.txt';
+		//Region??
+		//$command = './sh/parameters.sh \'Inicio\' \'region_19.png\' sh/pagina.html sh/resultado.txt';		
+		//Usos
+		//$command = './sh/parameters.sh \'Inicio\' \'usos_c2_22.png\' sh/pagina.html sh/resultado.txt';
+		//Biodiversity??
+		//$command = './sh/parameters.sh \'Inicio\' \'bioc1_19.png\' sh/pagina.html sh/resultado.txt';
+		//Corridor??
+		//$command = './sh/parameters.sh \'Inicio\' \'corredor_19.png\' sh/pagina.html sh/resultado.txt';
+		//Country??
+		//$command = './sh/parameters.sh \'Inicio\' \'pais_19.png\' sh/pagina.html sh/resultado.txt';
+		//Ecosystems??
+		//$command = './sh/parameters.sh \'Inicio\' \'ecosistemas_20.png\' sh/pagina.html sh/resultado.txt';
+		//Genes??
+		//$command = './sh/parameters.sh \'Inicio\' \'genes_15.png\' sh/pagina.html sh/resultado.txt';
+		//Planet??
+		//$command = './sh/parameters.sh \'Inicio\' \'planeta_19.png\' sh/pagina.html sh/resultado.txt';
+		//Region??
+		//$command = './sh/parameters.sh \'Inicio\' \'region_19.png\' sh/pagina.html sh/resultado.txt';
+		//Species??
+		//$command = './sh/parameters.sh \'Inicio\' \'marco_14.png\' sh/pagina.html sh/resultado.txt';
+		//Use??
+		//$command = './sh/parameters.sh \'Inicio\' \'usos_c2_22.png\' sh/pagina.html sh/resultado.txt';
 		$salida=exec($command);
 		$command = './sh/formato_lineal.sh sh/resultado.txt sh/pagina.html';
 		$salida=exec($command);		
@@ -271,7 +322,7 @@ class Arc
 		$command = './sh/links.sh \''.$out.'\' sh/salida.txt';
 		$out = exec($command);
 		$command = './sh/limpiar.sh sh/resultado.txt sh/pagina.html sh/salida.txt';
-		exec($command);
+		//exec($command);
 		return $out;
 	}
 
@@ -285,7 +336,7 @@ class Arc
 	{
 		$this->conexion();
 		$pagina = $this->db->select('paginas', '*', "pagina='".$this->page."'");
-		$this->page_obj = $pagina[0];		
+		$this->page_obj = $pagina[0];
 		return empty($this->page_obj->json) ? $this->arc() : $this->json();
 	}
 	
@@ -302,7 +353,8 @@ class Arc
 		$patron9 = $prefix_img."+(ecosistemas\w*.png)|(especies\w*.png)|(f_\w*.png)|(genes\w*.png)|(pais\w*.png)|(planeta\w*.png)$/";
 		$patron10 = $prefix_img."+(region_\w*.png)|(t_biodiversidad_[0-9].png)|(t_corredor_[0-9].png)|
 			(t_ecosistemas_[0-9].png)|(t_pais_[0-9].png)|(t_planeta_[0-9].png)|(t_region_[0-9].png)|(t_usos_[0-9].png)$/";
-		return $patterns = array($patron,$patron2,$patron3,$patron4,$patron5,$patron6,$patron7,$patron8,$patron9,$patron10);
+		$patron11 = $prefix_img."+(blank.gif)$/";
+		return $patterns = array($patron,$patron2,$patron3,$patron4,$patron5,$patron6,$patron7,$patron8,$patron9,$patron10,$patron11);
 	}
 	
 	private function links_no_validos(){
