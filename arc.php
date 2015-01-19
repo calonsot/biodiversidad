@@ -274,55 +274,59 @@ class Arc
 
 	private function get_dom_plaintext ()
 	{
-		$html = file_get_html($this->page);
-		system("echo '".$html."' > sh/html");
-		$command = './sh/formato.sh \''.$html.'\' sh/pagina.html';
-		$salida=exec($command);
-		//Biodiversidad
-		$command = './sh/parameters.sh \'Inicio\' \'bioc1_19.png\' sh/pagina.html sh/resultado.txt';
-		//Corredor
-		//$command = './sh/parameters.sh \'Inicio\' \'corredor_19.png\' sh/pagina.html sh/resultado.txt';
-		//Ecosistemas
-		//$command = './sh/parameters.sh \'Inicio\' \'ecosistemas_20.png\' sh/pagina.html sh/resultado.txt';
-		//Especies
-		//$command = './sh/parameters.sh \'Inicio\' \'marco_14.png\' sh/pagina.html sh/resultado.txt';
-		//Genes
-		//$command = './sh/parameters.sh \'Inicio\' \'genes_15.png\' sh/pagina.html sh/resultado.txt';
-		//Pais??
-		//$command = './sh/parameters.sh \'Inicio\' \'pais_19.png\' sh/pagina.html sh/resultado.txt';
-		//Planeta??
-		//$command = './sh/parameters.sh \'Inicio\' \'planeta_19.png\' sh/pagina.html sh/resultado.txt';
-		//Region??
-		//$command = './sh/parameters.sh \'Inicio\' \'region_19.png\' sh/pagina.html sh/resultado.txt';		
-		//Usos
-		//$command = './sh/parameters.sh \'Inicio\' \'usos_c2_22.png\' sh/pagina.html sh/resultado.txt';
-		//Biodiversity??
-		//$command = './sh/parameters.sh \'Inicio\' \'bioc1_19.png\' sh/pagina.html sh/resultado.txt';
-		//Corridor??
-		//$command = './sh/parameters.sh \'Inicio\' \'corredor_19.png\' sh/pagina.html sh/resultado.txt';
-		//Country??
-		//$command = './sh/parameters.sh \'Inicio\' \'pais_19.png\' sh/pagina.html sh/resultado.txt';
-		//Ecosystems??
-		//$command = './sh/parameters.sh \'Inicio\' \'ecosistemas_20.png\' sh/pagina.html sh/resultado.txt';
-		//Genes??
-		//$command = './sh/parameters.sh \'Inicio\' \'genes_15.png\' sh/pagina.html sh/resultado.txt';
-		//Planet??
-		//$command = './sh/parameters.sh \'Inicio\' \'planeta_19.png\' sh/pagina.html sh/resultado.txt';
-		//Region??
-		//$command = './sh/parameters.sh \'Inicio\' \'region_19.png\' sh/pagina.html sh/resultado.txt';
-		//Species??
-		//$command = './sh/parameters.sh \'Inicio\' \'marco_14.png\' sh/pagina.html sh/resultado.txt';
-		//Use??
-		//$command = './sh/parameters.sh \'Inicio\' \'usos_c2_22.png\' sh/pagina.html sh/resultado.txt';
+		$arreglo = array();
+		$arreglo = explode('/',$this->page);
+		$html = file_get_html($this->page);	
+		$command = './sh/formato.sh \''.$html.'\' sh/pagsina.html';
+		$salida=exec($command);		
+		$arreglo[3]=="v_ingles"?$pagina=$arreglo[4]:$pagina=$arreglo[3];
+		$arreglo[3]=="v_ingles"?$inicio="Home":$inicio="Inicio";
+		
+		switch ($pagina){
+			case "biodiversity": $command = './sh/parameters.sh \'Home\' \'bioc1_19.png\' sh/pagina.html sh/resultado.txt';
+								  break; 
+			case "biodiversidad": $command = './sh/parameters.sh \'Inicio\' \'bioc1_19.png\' sh/pagina.html sh/resultado.txt';
+								  break;
+			case "corridor": $command = './sh/parameters.sh \'Home\' \'corredor_19.png\' sh/pagina.html sh/resultado.txt';
+								  break;
+			case "corredor": $command = './sh/parameters.sh \'Inicio\' \'corredor_19.png\' sh/pagina.html sh/resultado.txt';
+			  					  break;
+  			case "ecosystems": $command = './sh/parameters.sh \'Home\' \'ecosistemas_20.png\' sh/pagina.html sh/resultado.txt';
+  								  break;
+  			case "ecosistemas": $command = './sh/parameters.sh \'Inicio\' \'ecosistemas_20.png\' sh/pagina.html sh/resultado.txt';
+  								  break;
+  			case "species": $command = './sh/parameters.sh \'Home\' \'marco_14.png\' sh/pagina.html sh/resultado.txt';
+  								  break;
+  			case "especies": $command = './sh/parameters.sh \'Inicio\' \'marco_14.png\' sh/pagina.html sh/resultado.txt';
+  					 		 	  break;
+  			case "genes": $command = './sh/parameters.sh \''.$inicio.'\' \'genes_15.png\' sh/pagina.html sh/resultado.txt';
+  					 		 	  break;
+ 		 	case "country": $command = './sh/parameters.sh \'Home\' \'pais_19.png\' sh/pagina.html sh/resultado.txt';
+ 					 		 	  break;
+ 			case "pais": $command = './sh/parameters.sh \'Inicio\' \'pais_19.png\' sh/pagina.html sh/resultado.txt';
+ 					 		 	  break;
+ 			case "planet": $command = './sh/parameters.sh \'Home\' \'planeta_19.png\' sh/pagina.html sh/resultado.txt';
+ 					 		 	  break;
+	   	    case "planeta": $command = './sh/parameters.sh \'Inicio\' \'planeta_19.png\' sh/pagina.html sh/resultado.txt';
+					 		 	  break;
+  	 	    case "region": $command = './sh/parameters.sh \''.$inicio.'\' \'region_19.png\' sh/pagina.html sh/resultado.txt';
+					 		 	  break;
+			case "use": $command = './sh/parameters.sh \'Home\' \'usos_c2_22.png\' sh/pagina.html sh/resultado.txt';
+					 		 	  break;
+  		 	case "usos": $command = './sh/parameters.sh \'Inicio\' \'usos_c2_22.png\' sh/pagina.html sh/resultado.txt';
+					 		 	  break;
+  		 	default: break;
+		}
+		
 		$salida=exec($command);
 		$command = './sh/formato_lineal.sh sh/resultado.txt sh/pagina.html';
-		$salida=exec($command);		
-		$salida = file_get_html("sh/pagina.html");		
-		$out = $salida->plaintext;
+		$salida=exec($command);
+		$salida = file_get_html("sh/pagina.html");	
+		@$out = $salida->plaintext;
 		$command = './sh/links.sh \''.$out.'\' sh/salida.txt';
 		$out = exec($command);
 		$command = './sh/limpiar.sh sh/resultado.txt sh/pagina.html sh/salida.txt';
-		//exec($command);
+		exec($command);
 		return $out;
 	}
 
