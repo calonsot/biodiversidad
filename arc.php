@@ -277,14 +277,14 @@ class Arc
 		$arreglo = array();
 		$arreglo = explode('/',$this->page);
 		$html = file_get_html($this->page);	
-		$command = './sh/formato.sh \''.$html.'\' sh/pagsina.html';
+		$command = './sh/formato.sh \''.$html.'\' sh/pagina.html';
 		$salida=exec($command);		
 		$arreglo[3]=="v_ingles"?$pagina=$arreglo[4]:$pagina=$arreglo[3];
 		$arreglo[3]=="v_ingles"?$inicio="Home":$inicio="Inicio";
 		
 		switch ($pagina){
 			case "biodiversity": $command = './sh/parameters.sh \'Home\' \'bioc1_19.png\' sh/pagina.html sh/resultado.txt';
-								  break; 
+								  break;
 			case "biodiversidad": $command = './sh/parameters.sh \'Inicio\' \'bioc1_19.png\' sh/pagina.html sh/resultado.txt';
 								  break;
 			case "corridor": $command = './sh/parameters.sh \'Home\' \'corredor_19.png\' sh/pagina.html sh/resultado.txt';
@@ -348,7 +348,9 @@ class Arc
 		$prefix_img = '/http:\D\Dwww.biodiversidad.gob.mx\D';
 		$patron = $prefix_img."biodiversidad\Dimages\Dbioc1_[0-9][0-9].png+$/";		
 		$patron2 = $prefix_img."images\Dindex_nw_[0-9][0-9].png+$/";
-		$patron3 = $prefix_img."+(spacer.gif)|(icimpresion_21.png)$/";
+		$patron3 = $prefix_img."+(spacer.gif)|(icimpresion_21.png)|(usos_c2_[0-9][0-9].png)|(extinxmil_[0-9][0-9].png)|
+				|(frases_[0-9][0-9].png)|(flor_[0-9][0-9].png)|(linea_[0-9][0-9].png)|(navsup[0-9].gif)|
+				|(navsupterm[0-9].gif)|(menugrisbaja.gif)|(bullet2.png)|(anima_[0-9][0-9].png)$/";
 		$patron4 = $prefix_img."+(logoprueba_[0-9][0-9].png)|(contycred_[0-9][0-9].png)|(menu_prin_[0-9][0-9][a]?.png)$/";
 		$patron5 = $prefix_img."+(balazo_\w*.png)|(biodiv_new_[0-9][0-9].png)|(tabla2_[0-9][0-9].png)$/";
 		$patron6 = $prefix_img."+(descarga_\w*.png)|(ic\w*.png)|(imgPMNinos_\w*.png)|(logo\w*.png)|(m[1-5]_\w*.png)$/";
